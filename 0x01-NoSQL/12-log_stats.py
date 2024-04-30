@@ -11,7 +11,7 @@ The format:
 import pymongo
 
 if __name__ == "__main__":
-    client = pymongo.MongoClient()
+    client = pymongo.MongoClient('mongodb://127.0.0.1:27017')
     db = client.logs
     collection = db.nginx
     stats = collection.aggregate(
