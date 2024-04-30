@@ -42,6 +42,6 @@ if __name__ == "__main__":
     print("{} logs".format(total_logs))
     print("Methods:")
     for method, count in method_counts.items():
-        print("    method {}: {}".format(method, count))
+        print("\tmethod {}: {}".format(method, count))
     print("{} status check".format(status_check_counts))
     client.close()
