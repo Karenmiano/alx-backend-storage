@@ -1,4 +1,4 @@
 // Mongo script to add attribute address=“972 Mission street” in all documents of collection
 // school with name="Holberton school"
 
-db.school.update({name: "Holberton school"}, {$set: {address: "976 Mission street"}}, {multi: true})
+db.school.update({name: "Holberton school"}, {$set: {address: "972 Mission street"}}, {multi: true})
