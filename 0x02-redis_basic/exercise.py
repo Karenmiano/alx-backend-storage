@@ -21,20 +21,25 @@ class Cache:
         return key
 
     def get(self, key: str,
-            fn: Optional[Callable] = None) -> Union[str, int, bytes, float]:
-        """Retrieves an entry from redis and returns the value"""
+            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+        """Returns the value linked to the key"""
         value = self._redis.get(key)
         if fn:
-            try:
-                value = fn(value)
-            except Exception:
-                pass
+            return fn(value)
         return value
 
-    def get_str(self, key: str):
-        """Retrieves a string entry from redis and returns the value"""
-        return self.get(key, str)
+    def get_str(self, key: str) -> str:
+        """automatically parametrize Cache.get with the correct
+        conversion function"""
+        value = self._redis.get(key)
+        return value.decode("utf-8")
 
-    def get_int(self, key: str):
-        """Retrieves an integer entry from redis and returns the value"""
-        return self.get(key, int)
+    def get_int(self, key: str) -> int:
+        """automatically parametrize Cache.get with the correct
+        conversion function"""
+        value = self._redis.get(key)
+        try:
+            value = int(value.decode("utf-8"))
+        except Exception:
+            value = 0
+        return value
