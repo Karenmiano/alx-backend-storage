@@ -9,8 +9,8 @@ class Cache:
     """Declares a Cache class"""
     def __init__(self) -> None:
         """Creates a connection to redis and flushes the db"""
-        self.__redis: redis.Redis = redis.Redis()
-        self.__redis.flushdb()
+        self._redis: redis.Redis = redis.Redis()
+        self._redis.flushdb()
 
     def store(self, data: str | bytes | int | float) -> str:
         """Adds a record in redis and returns the key"""
