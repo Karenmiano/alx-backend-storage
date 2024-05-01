@@ -3,6 +3,7 @@
 Defines the class Cache
 """
 import redis
+from typing import Union
 import uuid
 
 
@@ -13,7 +14,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data: str | bytes | int | float) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """Adds a record in redis and returns the key"""
         key = str(uuid.uuid4())
         self._redis.set(key, data)
