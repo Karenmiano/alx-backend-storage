@@ -7,7 +7,7 @@ import uuid
 
 class Cache:
     """Declares a Cache class"""
-    def __init__(self) -> None:
+    def __init__(self):
         """Creates a connection to redis and flushes the db"""
         self._redis: redis.Redis = redis.Redis()
         self._redis.flushdb()
