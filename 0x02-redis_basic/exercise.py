@@ -8,14 +8,14 @@ import uuid
 from functools import wraps
 
 
-def count_calls(meth: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """Decorator function that counts the number of times a
        methods of Cache class called"""
-    @wraps(meth)
+    @wraps(method)
     def counter(self, *args, **kwargs):
         """Stores the counts in redis"""
-        self._redis.incr(meth.__qualname__)
-        return meth(self, *args, **kwargs)
+        self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
     return counter
 
 
