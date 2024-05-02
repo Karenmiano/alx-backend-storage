@@ -24,5 +24,7 @@ TEST_CASES = {
 for value, fn in TEST_CASES.items():
     key = cache.store(value)
     print(cache.get_int(key))
-
+cache.store("World")
+cache.store("Word")
 print(cache.get(cache.store.__qualname__))
+
