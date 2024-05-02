@@ -12,10 +12,10 @@ def count_calls(method: Callable) -> Callable:
     """Decorator function that counts the number of times a
        methods of Cache class called"""
     @wraps(method)
-    def counter(self, *args, **kwargs):
+    def counter(*args, **kwargs):
         """Stores the counts in redis"""
-        self._redis.incr(method.__qualname__)
-        return method(self, *args, **kwargs)
+        args[0]._redis.incr(method.__qualname__)
+        return method(*args, **kwargs)
     return counter
 
 
