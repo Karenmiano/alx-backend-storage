@@ -14,8 +14,8 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def counter(self, *args, **kwargs):
         """Stores the counts in redis"""
-        args[0]._redis.incr(method.__qualname__)
-        return method(*args, **kwargs)
+        self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
     return counter
 
 
