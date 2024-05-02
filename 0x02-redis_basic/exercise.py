@@ -5,6 +5,18 @@ Defines the class Cache
 import redis
 from typing import Union, Callable, Optional
 import uuid
+from functools import wraps
+
+
+def count_calls(meth: Callable) -> Callable:
+    """Decorator function that counts the number of times a
+       methods of Cache class called"""
+    @wraps(meth)
+    def counter(*args, **kwargs):
+        """Stores the counts in redis"""
+        args[0]._redis.incr(meth.__qualname__)
+        return meth(*args, **kwargs)
+    return counter
 
 
 class Cache:
@@ -14,6 +26,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Adds a entry to redis and returns the key"""
         key = str(uuid.uuid4())
